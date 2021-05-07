@@ -1,0 +1,66 @@
+[State]
+  MintbaseAddress = ""
+
+[Store]
+  Path = "data"
+
+[TxPool]
+  WaitingTimeout = 2000000000
+  MaxSize = 2000
+
+[Consensus]
+  QueryProposalTimeout = 1000000000
+  ChangeProposerTimeout = 6000000000
+  ChangeProposerDelta = 2000000000
+
+[Network]
+  Name = "zarb"
+  ListenAddress = ["/ip4/0.0.0.0/tcp/8421", "/ip6/::/tcp/8421"]
+  NodeKeyFile = "node_key"
+  EnableNATService = true
+  EnableRelay = true
+  EnableMDNS = true
+  EnableKademlia = true
+  [Network.Bootstrap]
+    Addresses = ["/ip4/172.104.186.100/tcp/8421/p2p/12D3KooWLB7zCZ2VV1AtqHwYy2RBgpxdtwYRYt1ZU7iECFNfpks6"]
+    MinThreshold = 8
+    MaxThreshold = 16
+    Period = 60000000000
+
+[Logger]
+  Colorfull = true
+  [Logger.Levels]
+    _capnp = "error"
+    _consensus = "error"
+    _grpc = "error"
+    _http = "error"
+    _network = "error"
+    _pool = "error"
+    _state = "error"
+    _sync = "error"
+    default = "error"
+
+[Sync]
+  Moniker = ""
+  StartingTimeout = 3000000000
+  HeartBeatTimeout = 5000000000
+  SessionTimeout = 30000000000
+  InitialBlockDownload = false
+  BlockPerMessage = 10
+  RequestBlockInterval = 720
+  CacheSize = 500000
+
+[Capnp]
+  Enable = false
+  Address = "[::]:37621"
+
+[Http]
+  Enable = false
+  Address = "[::]:8081"
+
+[GRPC]
+  Enable = true
+  Address = "[::]:9090"
+  [GRPC.Gateway]
+    Enable = true
+    Address = "[::]:8080"

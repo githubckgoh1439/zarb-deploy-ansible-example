@@ -1,0 +1,7 @@
+---
+  webservers:
+    hosts:
+      zarb_host:
+        ansible_host: <ip_address>
+
+
