@@ -15,14 +15,14 @@
 
 [Network]
   Name = "zarb"
-  ListenAddress = ["/ip4/0.0.0.0/tcp/8421", "/ip6/::/tcp/8421"]
+  ListenAddress = ["/ip4/0.0.0.0/tcp/0", "/ip6/::/tcp/0"]
   NodeKeyFile = "node_key"
   EnableNATService = true
   EnableRelay = true
   EnableMDNS = true
   EnableKademlia = true
   [Network.Bootstrap]
-    Addresses = ["/ip4/172.104.186.100/tcp/8421/p2p/12D3KooWLB7zCZ2VV1AtqHwYy2RBgpxdtwYRYt1ZU7iECFNfpks6", "/ip4/139.177.199.21/tcp/8421/p2p/12D3KooWMjGbsP2XbR11RmjevPvTsC33qT48sbqiBhB9ekoFiedx"]
+    Addresses = []
     MinThreshold = 8
     MaxThreshold = 16
     Period = 60000000000
@@ -31,30 +31,33 @@
   Colorfull = true
   [Logger.Levels]
     _capnp = "error"
-    _consensus = "error"
+    _consensus = "info"
     _grpc = "error"
     _http = "error"
     _network = "error"
     _pool = "error"
-    _state = "error"
-    _sync = "error"
-    default = "error"
+    _state = "info"
+    _sync = "warning"
+    default = "info"
 
 [Sync]
   Moniker = ""
   StartingTimeout = 3000000000
   HeartBeatTimeout = 5000000000
   SessionTimeout = 30000000000
-  InitialBlockDownload = false
+  InitialBlockDownload = true
   BlockPerMessage = 120
+  MaximumOpenSessions = 8
   CacheSize = 500000
+  [Sync.Firewall]
+    Enabled = false
 
 [Capnp]
-  Enable = false
+  Enable = true
   Address = "[::]:37621"
 
-[Http]
-  Enable = false
+[HTTP]
+  Enable = true
   Address = "[::]:8081"
 
 [GRPC]

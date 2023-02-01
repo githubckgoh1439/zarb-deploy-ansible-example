@@ -1,0 +1,7 @@
+---
+- hosts: zarb_host
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - zarb_host

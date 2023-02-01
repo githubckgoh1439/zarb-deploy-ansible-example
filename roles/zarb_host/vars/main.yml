@@ -1,12 +1,17 @@
 ---
+serviceName: "zarb_host"
+userId: "zarb_host"
+groupId: "zarb_host"
+version: 1.0.0
 docker_edition: "ce"
 docker_package: "docker-{{ docker_edition }}"
 docker_package_state: present
-docker_image: zarb/zarb
+docker_image: build-zarb
 docker_image_tag: latest
 docker_install_compose: false
 pip_install_packages: docker
 ansible_python_interpreter: /usr/bin/python3
 zarb_container_name: "zarb"
-zarb_working_directory: "~/zarb"
+zarb_working_directory: "/tmp/zarb/"
+vault_validator_key: "../files/validator_key.json"
 ntp_enabled: true
