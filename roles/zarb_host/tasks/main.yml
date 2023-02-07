@@ -1,0 +1,45 @@
+- name: Deploy zarb node user-group
+  group: name="{{groupId}}"
+  become: true
+
+- name: Deploy zarb node user
+  user:
+    name: "{{userId}}"
+    group: "{{groupId}}"
+    system: yes
+    shell: "/sbin/nologin"
+    comment: "{{userId}} nologin User"
+    createhome: "no"
+    state: present
+
+# This playbook to deploy zarb node: main_tasks
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
+- name: Create working directories
+  file:
+    path: "{{ zarb_working_directory }}"
+    state: directory
+    mode: '0755'
+
+- name: Copy genesis and config files
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: "../files/genesis.json", dest: "{{ zarb_working_directory }}/genesis.json" }
+    - { src: "../files/config.toml",  dest: "{{ zarb_working_directory}}/config.toml" }
+    - { src: "../files/node_key",  dest: "{{ zarb_working_directory}}/node_key" }
+    - { src: "../files/validator_key.json",  dest: "{{ zarb_working_directory}}/validator_key.json" }
+
+- name: Restarting the node
+  no_log: False
+  docker_container:
+    name: "{{ zarb_container_name }}"
+    image: "{{ docker_image }}:{{ docker_image_tag }}"
+    command: start -w /zarb
+    volumes: "{{ zarb_working_directory }}:/zarb"
+    restart_policy: on-failure
+    ports:
+      - "8421:8421"
+      - "8080:8080"
+      - "21777:21777"
